@@ -1,0 +1,12 @@
+WTForms==2.2.1
+Werkzeug==0.16.0
+Flask_SQLAlchemy==2.4.1
+Flask_Login==0.4.1
+Flask_WTF==0.14.2
+numpy==1.18.1
+opencv_contrib_python==4.1.2.30
+Flask==1.0.2
+Pillow==7.0.0
+psycopg2-binary==2.8.4
+Werkzeug==0.16.0
+Flask-Mail==0.9.1 

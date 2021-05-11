@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h5>Register Student Facial Records</h5>
+    <div class="embed-responsive embed-responsive-16by9">
+        <img class="embed-responsive-item" src="{{ url_for('register_new_face',student_id=student.id) }}">
+    </div>
+    <div class="mt-5">
+        <form method="POST" action="" class="mx-auto">
+            {{ form.hidden_tag() }}
+            {{ form.submit(class="btn btn-danger btn-sm") }}
+        </form>
+{#        <a type="button" href="/dashboard" class="btn btn-danger btn-sm">Complete</a>#}
+    </div>
+{% endblock content %}

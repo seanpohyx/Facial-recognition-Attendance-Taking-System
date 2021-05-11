@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    {% for i in range(0, len) %}
+        {% if i%3==0 %}
+            <div class="card-deck pt-5">
+        {% endif %}
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ dashboards[i].title }}</h5>
+                <p class="card-text"> {{ dashboards[i].description }}</p>
+            </div>
+            <div class="card-body">
+                {% for link in dashboards[i].links %}
+                    <a href="{{ link.href }}" class="card-link">{{ link.content }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if i%3==2 %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+
+
+{#    <div class="card-deck pt-5">#}
+{#        <div class="card ">#}
+{#            <div class="card-body">#}
+{#                <h5 class="card-title">Register New Account</h5>#}
+{#                <p class="card-text">To allow all new professor to be registered with a new account to access the#}
+{#                    portal.</p>#}
+{#            </div>#}
+{#            <div class="card-body">#}
+{#                <a href="#" class="card-link">Register</a>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="card">#}
+{#            <div class="card-body">#}
+{#                <h5 class="card-title">Upload data into the system</h5>#}
+{#                <p class="card-text">To allow the uploading of student data#}
+{#                    and classes data from NTU system over to this registration system</p>#}
+{#            </div>#}
+{#            <div class="card-body">#}
+{#                <a href="#" class="card-link">Upload Students</a>#}
+{#                <a href="#" class="card-link">Upload Classes</a>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="card">#}
+{#            <div class="card-body">#}
+{#                <h5 class="card-title">List Students</h5>#}
+{#                <p class="card-text">To show all students that are in our systems</p>#}
+{#            </div>#}
+{#            <div class="card-body">#}
+{#                <a href="#" class="card-link">Show</a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{% endblock content %}

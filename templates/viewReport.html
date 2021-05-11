@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="pt-5">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Lesson Date</th>
+              <th scope="col">Present Students</th>
+              <th scope="col">Total Students</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for y in reports %}
+              {% set counter = namespace(value = 0) %}
+              {% set date = namespace(value = 0) %}
+              {% for z in y %}
+              {% set status = z[1].attendance %}
+                  {% if status %}
+                     {% set counter.value = counter.value + 1 %}
+                  {% endif %}
+                  {% set date.value = z[1].closedate.date() %}
+              {% endfor %}
+            <tr>
+              <td>{{ date.value }}</td>
+              <td>{{ counter.value }}</td>
+              <td>{{ y|length }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

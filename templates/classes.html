@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="pt-5">
+        <form method="POST" action="" class="mx-auto input-group">
+            {{ form.hidden_tag() }}
+            {{ form.search(class="form-control mr-sm-2") }}
+          <span class="input-group-btn">
+              {{ form.submit(class="btn btn-primary my-2 my-sm-0") }}
+          </span>
+        </form>
+{#        <input type="text" name="searchClasses" autocomplete="off" id ="livebox" placeholder="Search for classes" class="form-control input-lg"/>#}
+    </div>
+    <div class="pt-5">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Module</th>
+              <th scope="col">Group</th>
+              <th scope="col">Day</th>
+              <th scope="col">Time</th>
+              <th scope="col">Frequency</th>
+              <th scope="col">Duration(HR)</th>
+              <th scope="col">Class</th>
+              <th scope="col">Report</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for class in classes %}
+                <tr>
+                  <td>{{ class.module }}[{{ class.moduleCode }}]</td>
+                  <td>{{ class.classCode }}</td>
+                  <td>{{ class.day }}</td>
+                  <td>{{ class.startTime }}</td>
+                  <td>{{ class.frequency }} week</td>
+                  <td>{{ class.duration }}</td>
+                  <td>
+                      <a type="button" href="/class-students/{{ class.id }}" class="btn btn-primary btn-sm">View</a>
+                  </td>
+                  <td>
+                    <a type="button" href="/view-report/{{ class.id }}" class="btn btn-primary btn-sm">View</a>
+                </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,142 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="pt-5">
+        <form method="POST" action="" class="mx-auto input-group">
+            {{ searchform.hidden_tag() }}
+            {{ searchform.search(class="form-control mr-sm-2") }}
+          <span class="input-group-btn">
+              {{ searchform.submit(class="btn btn-primary my-2 my-sm-0") }}
+          </span>
+        </form>
+    </div>
+    <div class="pt-5">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Matric No.</th>
+              <th scope="col">Date of Enrollment</th>
+                {% if showBtn %}
+                    <th scope="col">Facial Updates</th>
+                {% else %}
+                    <th scope="col">Attendance</th>
+                    <th scope="col">Time Marked</th>
+                {% endif %}
+            </tr>
+          </thead>
+          <tbody>
+            {% if showBtn %}
+                {% for student in students %}
+                    <tr>
+                      <td>{{ student.name }}</td>
+                      <td>{{ student.matricNo }}</td>
+                      <td>{{ student.dateOfEnrollment }}</td>
+                      <td>
+                          <a type="button" href="/register-student/{{ student.id }}" class="btn btn-danger btn-sm">Update</a>
+                      </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                {% for student in students %}
+                    <tr>
+                      <td>{{ student[0].name }}</td>
+                      <td>{{ student[0].matricNo }}</td>
+                      <td>{{ student[0].dateOfEnrollment }}</td>
+                        <td>{{ student[1].attendance }}</td>
+                        <td>{{ student[1].datetime }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+    </div>
+    {% if showBtn is not defined %}
+        <div class="pt-5">
+            <a type="button" href="/mark-attendance/{{ classId }}" class="btn btn-primary">Facial Marking</a>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+              Manual Attendance
+            </button>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal2">
+              Send Email To Absentee
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal3">
+              Close Attendance taking
+            </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form method="POST" action="/manual-insert/{{ classId }}" class="mx-auto">
+                {{ manualForm.hidden_tag() }}
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Manual</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      Enter matric number
+    {#                  <input type="text" placeholder="U1234567C" class="form-control input-lg"/>#}
+                      {{ manualForm.matric_no(class="form-control input-lg") }}
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      {{ manualForm.submit(class="btn btn-outline-primary") }}
+    {#                <button type="button" class="btn btn-primary">Confirm</button>#}
+                  </div>
+                </div>
+              </div>
+            </form>
+        </div>
+       <!-- Modal -->
+       <div class="modal fade" id="exampleModal2" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+        <form method="POST" action="/sendAbsenteeEmail/{{ classId }}" class="mx-auto">
+            {{ sendAbsenteeEmail.hidden_tag() }}
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">Are you sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  {{ sendAbsenteeEmail.submit(class="btn btn-outline-primary") }}
+              </div>
+            </div>
+          </div>
+        </form>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal3" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+    <form method="POST" action="/close-attendance/{{ classId }}" class="mx-auto">
+        {{ closeAttendance.hidden_tag() }}
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel3">Are you sure?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <b>Warning:</b>
+          <p>This action is irreversible.
+          By doing so the current attendance status will be stored into the database.
+          Attendance will then reset for the next upcoming lesson.</p>
+          <b>Note:</b>
+          <p>you may want to consider sending a warning email to absentees before closing Attendance Taking.</p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              {{ closeAttendance.submit(class="btn btn-outline-primary", onclick="onClickLoaders()") }}
+          </div>
+        </div>
+      </div>
+    </form>
+</div>
+    {% endif %}
+
+{% endblock content %}

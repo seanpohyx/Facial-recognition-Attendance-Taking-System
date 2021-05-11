@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h5>Mark Attendance</h5>
+    <div class="embed-responsive embed-responsive-16by9">
+        <img class="embed-responsive-item" src="{{ url_for('attendance_video',class_id=classId) }}">
+    </div>
+    <div class="mt-5">
+        <a type="button" href="/class-students/{{ classId }}" class="btn btn-danger btn-sm">Back</a>
+    </div>
+{% endblock content %}
