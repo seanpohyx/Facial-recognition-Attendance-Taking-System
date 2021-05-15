@@ -1,7 +1,7 @@
 # ASE_FATS
  Facial-recognition Attendance Taking System
 
- This project is created for Advanced software engineering module in NTU. 
+ This project is created for Advanced software engineering module in NTU. We created a platform that uses facial recognition for attendance taking. 
 
  This project mainly uses 
  * Flask
